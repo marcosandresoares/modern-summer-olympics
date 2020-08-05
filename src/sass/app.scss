@@ -1,0 +1,422 @@
+/*
+=================
+    Imports
+=================
+*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+
+
+
+/*
+=================
+    Variables
+=================
+*/
+
+$bg-color: #222831;
+$bg-frame-color: #ded7b3;
+$cursor-fill: #32e0c4;
+$cursor-stroke: none;
+$cursor-stroke-width: 1px;
+$default_font_size: 12px;
+$link-color: #32e0c4;
+$link-color-hover: #eeeeee;
+$menu-color: #000;
+$menu-item-color: #393e46;
+$text-color: #eeeeee;
+
+// font
+$noto-sans: 'Noto Sans JP', sans serif;
+$noto-serif: 'Noto Serif', serif;
+
+
+/*
+=================
+    Styling
+=================
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: $default_font_size;
+}
+
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: $text-color;
+    background-color: $bg-color;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: $noto-sans;
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: $link-color;
+    outline: none;
+    cursor: pointer;
+}
+
+a:hover,
+a:focus {
+    color: $link-color-hover;
+    outline: none;
+}
+
+// Page Loader
+.js .loading::before,
+.js .loading::after {
+    content: '';
+    position: fixed;
+    z-index: 888;
+}
+
+.js .loading::before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $bg-color;
+}
+
+.js .loading::after {
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    opacity: 0.4;
+    background-color: $link-color;
+    animation: loaderAnimation 0.7s linear infinite alternate forwards;
+}
+
+// top frame
+.top_frame {
+    position: relative;
+    padding: 1rem 4rem;
+    width: 100%;
+    display: flex;
+    text-transform: uppercase;
+    z-index: 1000;
+    background-color: $bg-color;
+}
+
+.top_frame_title {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+// title
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    width: 100%;
+    height: 30vh;
+    margin-bottom: 80px;
+    background-color: none;
+}
+
+.title h1 {
+    font-family: $noto-sans;
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0 10%;
+    color: $link-color;
+}
+
+// menu
+.menu {
+    padding: 5rem 0 40vh 0;
+    position: relative;
+    display: grid;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    counter-reset: menucounter;
+}
+
+.menu_item {
+    justify-content: start;
+    position: relative;
+    display: grid;
+    width: 100%;
+    grid-template-areas: 'counter text';
+    grid-template-columns: 3rem auto;
+    grid-template-rows: auto;
+    padding: 0.5rem 1rem;
+    color: $text-color;
+}
+
+.menu_item::before {
+    text-align: right;
+    grid-area: counter;
+    align-self: start;
+    justify-self: end;
+    counter-increment: menucounter;
+    content: counters(menucounter,'.', upper-roman);
+    color: $text-color;
+    opacity: 0;
+    font-family: $noto-sans;
+    font-weight: 100;
+    line-height: 1;
+    padding-right: 0.5rem;
+    display: grid;
+    place-items: center;
+    font-size: clamp(1.5rem, 5vw, 4rem);
+    transform: translateX(1rem);
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.menu_item:hover::before {
+    color: $text-color;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.menu_item_text {
+    grid-area: text;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+    line-height: 1;
+    height: 100%;
+}
+
+.menu_item_inner_text {
+    font-size: clamp(3rem, 7vw, 5rem);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    //display: block;
+    font-family: $noto-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: $menu-item-color;
+}
+
+.js .menu_item_inner_text {
+    transform: translateY(100%);
+}
+
+.menu_item:hover .menu_item_inner_text {
+    color: $link-color;
+}
+
+.menu_item_sub{
+    grid-area: sub;
+    display: none;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-family: $noto-sans;
+    font-weight: 600;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+    line-height: 1;
+    padding: 0 0 0.5rem 0;
+    color: $link-color-hover;
+    opacity: 0;
+    margin-left: auto;
+    transform: translateX(-1rem);
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.menu_item:hover .menu_item_sub {
+    color: $text-color;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+// hover
+.hover_reveal {
+    position: absolute;
+    z-index: -1;
+    width: 350px;
+    height: 500px;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform, filter;
+}
+
+.hover_reveal_inner {
+    overflow: hidden;
+}
+
+.hover_reveal_inner,
+.hover_reveal_img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.hover_reveal_img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.cursor {
+    display: none;
+}
+
+/*
+=================
+    Keyframes
+=================
+*/
+
+@keyframes loaderAnimation {
+    to {
+        opacity: 1;
+        transform: scale3d(0.5, 0.5, 1);
+    }
+}
+
+/*
+=================
+    Media
+    Queries
+=================
+*/
+
+@media screen and (min-width: 53em) {
+    .top_frame {
+        pointer-events: none;
+        background: none;
+    }
+
+    .top_frame_container {
+        pointer-events: none;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        height: 30vh;
+        margin-bottom: 80px;
+        background-color: none;
+    }
+    
+    .title h1 {
+        font-family: $noto-sans;
+        font-size: 5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 0 20%;
+        color: $link-color;
+    }
+
+    .menu_item {
+        grid-template-areas: 
+        '.  counter     text    .       .'
+        '.  .           sub     .       .';
+        grid-template-columns: 1fr 7rem auto 7rem 1fr;
+    }
+
+    .menu_item_sub {
+        display: block;
+    }
+}
+
+
+@media (any-pointer: fine) {
+    .cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: block;
+        pointer-events: none;
+    }
+
+    .inner_cursor {
+        fill: $cursor-fill;
+        stroke: $cursor-stroke;
+        stroke-width: $cursor-stroke-width;
+        opacity: 0.7;
+    }
+}
+/*
+=================
+    Locomotive
+    Scroll
+=================
+*/
+
+html.has-scroll-smooth {
+    overflow: hidden;
+}
+
+html.has-scroll-dragging {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.has-scroll-smooth body {
+    overflow: hidden;
+}
+
+.has-scroll-smooth [data-scroll-container] {
+    min-height: 100vh;
+}
+
+.c-scrollbar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 11px;
+    height: 100vh;
+    transform-origin: center right;
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0;
+}
+
+.c-scrollbar:hover {
+    transform: scaleX(1.45);
+}
+
+.c-scrollbar:hover,
+.has-scroll-scrolling .c-scrollbar,
+.has-scroll-dragging .c-scrollbar {
+    opacity: 1;
+}
+
+.c-scrollbar_thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.5;
+    width: 7px;
+    border-radius: 10px;
+    margin: 2px;
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+.has-scroll-dragging .c-scrollbar_thumb {
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}
